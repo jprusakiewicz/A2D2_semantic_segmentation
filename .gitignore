@@ -2,3 +2,4 @@
 *.tar
 *.gz
 *.ipynb_checkpoints
+venv/
