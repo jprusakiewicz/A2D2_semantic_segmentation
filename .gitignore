@@ -1,5 +1,7 @@
 .DS_Store
+.pytest_cache
 *.tar
 *.gz
 *.ipynb_checkpoints
-venv/
+venv/*
+__pycache__
