@@ -1,13 +1,13 @@
 import numpy as np
 import json
 from PIL import ImageColor
-# import tensorflow as tf
 import sys
 
 sys.path.append("src")
 from read_data import SAMPLE_IMAGE, SAMPLE_LABEL
 from models.unet.test_unet import unet_model
 from preprocessors.label import label_to_categorical
+
 
 def train_model():
     with open("./data/class_list.json") as f:

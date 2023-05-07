@@ -3,6 +3,7 @@ import tarfile
 from PIL import Image
 import numpy
 
+
 def read_data(tar_file: str):
     """
     GENERAQTED BY CHATGPT LOL
@@ -27,5 +28,7 @@ def read_data(tar_file: str):
     return images
 
 
-SAMPLE_IMAGE = numpy.array(Image.open("./data/sample_data/20180807145028_camera_frontcenter_000006882.png").resize((240, 151)))
-SAMPLE_LABEL = numpy.array(Image.open("./data/sample_data/20180807145028_label_frontcenter_000006882.png").resize((240, 151)))
+SAMPLE_IMAGE = numpy.array(
+    Image.open("./data/sample_data/20180807145028_camera_frontcenter_000006882.png").resize((240, 151)))
+SAMPLE_LABEL = numpy.array(
+    Image.open("./data/sample_data/20180807145028_label_frontcenter_000006882.png").resize((240, 151)))
