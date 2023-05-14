@@ -1,7 +1,7 @@
 import os
 import tarfile
 from PIL import Image
-import numpy
+import numpy as np
 
 
 def read_data(tar_file: str):
@@ -24,11 +24,7 @@ def read_data(tar_file: str):
                 f = tf.extractfile(member)
                 image = np.array(Image.open(f))
                 images.append(image)
-
     return images
 
-
-SAMPLE_IMAGE = numpy.array(
-    Image.open("./data/sample_data/20180807145028_camera_frontcenter_000006882.png").resize((240, 151)))
-SAMPLE_LABEL = numpy.array(
-    Image.open("./data/sample_data/20180807145028_label_frontcenter_000006882.png").resize((240, 151)))
+def read_image(path: str):
+    return np.array(Image.open(path).resize((240, 151)))

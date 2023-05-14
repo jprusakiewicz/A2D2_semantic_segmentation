@@ -2,7 +2,7 @@ import tensorflow as tf
 
 
 # Define the U-Net model architecture
-def unet_model(input_shape, num_classes):
+def unet_model(input_shape, num_classes: int):
     """model: https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/"""
 
     inputs = tf.keras.layers.Input(shape=input_shape)

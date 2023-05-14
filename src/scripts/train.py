@@ -1,17 +1,19 @@
-import numpy as np
 import sys
 
+import numpy as np
+
+from omegaconf import OmegaConf
+
 sys.path.append("src")
-from data.read_data import SAMPLE_IMAGE, SAMPLE_LABEL
+from data.read_data import read_image
 from models.unet.test_unet import unet_model
 from preprocessors.label import label_to_categorical, class_colors_mapping_rgb, num_classes, colormap
 
 
-def train_model(x, y, num_classes: int):
+def train_model(x, y, num_classes: int, config):
     my_model = unet_model(input_shape=(151, 240, 3), num_classes=num_classes)
-    my_model.compile(optimizer="rmsprop", loss="categorical_crossentropy", metrics=['accuracy'])
-    my_model.fit(x=x, y=y, epochs=500, steps_per_epoch=1, verbose=2)
-
+    my_model.compile(**config.compile_params)
+    my_model.fit(x=x, y=y, **config.fit_params)
     return my_model
 
 
@@ -19,9 +21,15 @@ def save_model(model, path: str = "./"):
     model.save(path)
 
 
-if __name__ == '__main__':
-    MODEL_SAVE_PATH = "./trained_models/keras_test_unet"
+def run_training(config):
+    sample_label = read_image(config.training.sample_label_path)
+    sample_image = read_image(config.training.sample_image_path)
+    cat = label_to_categorical(sample_label, class_colors_mapping_rgb)
+    model = train_model(x=np.expand_dims(sample_image, axis=0), y=cat,
+                        num_classes=num_classes, config=config.training.model)
+    save_model(model, config.training.model_save_path)
 
-    cat = label_to_categorical(SAMPLE_LABEL, class_colors_mapping_rgb)
-    model = train_model(np.expand_dims(SAMPLE_IMAGE, axis=0), cat, num_classes)
-    save_model(model, MODEL_SAVE_PATH)
+
+if __name__ == '__main__':
+    config = OmegaConf.load('config/test_config.yaml')
+    run_training(config)

@@ -1,0 +1,24 @@
+training:
+  model_save_path: "./trained_models/keras_test_unet"
+  sample_label_path: "./data/sample_data/20180807145028_label_frontcenter_000006882.png"
+  sample_image_path: "./data/sample_data/20180807145028_camera_frontcenter_000006882.png"
+  model:
+    compile_params:
+      optimizer: "rmsprop" # https://www.tensorflow.org/api_docs/python/tf/keras/optimizers
+      loss: "categorical_crossentropy" # https://www.tensorflow.org/api_docs/python/tf/keras/losses
+      metrics:
+        - "accuracy"
+        - "Precision"
+        - "Recall"
+#        - "mse"
+#        - "FalsePositives"
+#        - "FalseNegatives"
+    fit_params:
+      epochs: 200
+      steps_per_epoch: 1
+      verbose: 2
+#      loss_weights: None
+#      weighted_metrics: ...
+#      run_eagerly: ...
+#      steps_per_execution: ...
+#      jit_compile: ...
