@@ -5,7 +5,7 @@ import numpy as np
 from omegaconf import OmegaConf
 
 sys.path.append("src")
-from data.read_data import read_image
+from data.read_data import read_images
 from models.unet.test_unet import unet_model
 from preprocessors.label import label_to_categorical, class_colors_mapping_rgb, num_classes, colormap
 
@@ -22,10 +22,10 @@ def save_model(model, path: str = "./"):
 
 
 def run_training(config):
-    sample_label = read_image(config.training.sample_label_path)
-    sample_image = read_image(config.training.sample_image_path)
-    cat = label_to_categorical(sample_label, class_colors_mapping_rgb)
-    model = train_model(x=np.expand_dims(sample_image, axis=0), y=cat,
+    sample_labels = read_images(config.training.sample_label_path)
+    sample_images = read_images(config.training.sample_image_path)
+    cat = label_to_categorical(sample_labels, class_colors_mapping_rgb)
+    model = train_model(x=sample_images, y=cat,
                         num_classes=num_classes, config=config.training.model)
     save_model(model, config.training.model_save_path)
 

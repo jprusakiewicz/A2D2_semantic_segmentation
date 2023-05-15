@@ -1,5 +1,7 @@
 import os
 import tarfile
+from os.path import isfile
+
 from PIL import Image
 import numpy as np
 
@@ -26,5 +28,12 @@ def read_data(tar_file: str):
                 images.append(image)
     return images
 
-def read_image(path: str):
-    return np.array(Image.open(path).resize((240, 151)))
+
+def read_image(image_path: str):
+    return np.array(Image.open(image_path).resize((240, 151)))
+
+
+def read_images(images_directory_path: str):
+    return np.asarray([np.array(Image.open(os.path.join(images_directory_path, image)).resize((240, 151)))
+            for image in os.listdir(images_directory_path)
+            if isfile(os.path.join(images_directory_path, image))])

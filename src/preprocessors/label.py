@@ -4,17 +4,20 @@ import json
 from PIL import ImageColor
 
 
-def label_to_categorical(label, class_colors_mapping_rgb):
+def label_to_categorical(labels, class_colors_mapping_rgb):
     """
     label: (probably) np.array the one from test file """
     num_classes = len(class_colors_mapping_rgb.keys())
 
-    mask = np.zeros(label.shape, dtype=np.uint8)
-    for idx, color in enumerate(class_colors_mapping_rgb.values()):
-        mask[np.all(label == color, axis=-1)] = idx + 1
-    mask = mask[:, :, 0]
-    masks = np.expand_dims(mask, axis=0)
-    masks = np.expand_dims(masks, axis=3)
+    masks = []
+    for label in labels:
+        mask = np.zeros(label.shape, dtype=np.uint8)
+        for idx, color in enumerate(class_colors_mapping_rgb.values()):
+            mask[np.all(label == color, axis=-1)] = idx + 1
+        mask = mask[:, :, 0]
+        masks.append(mask)
+
+    masks = np.asarray(masks, dtype=np.uint8)
 
     cat = to_categorical(masks, num_classes=num_classes)
     return cat
