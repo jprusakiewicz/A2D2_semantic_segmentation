@@ -1,12 +1,12 @@
 import sys
 
-import numpy as np
 
 from omegaconf import OmegaConf
 
 sys.path.append("src")
 from data.read_data import read_images
 from models.unet.test_unet import unet_model
+# from models.unet_resnet.unet_resnet import res_unet
 from preprocessors.label import label_to_categorical, class_colors_mapping_rgb, num_classes, colormap
 
 

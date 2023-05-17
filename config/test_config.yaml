@@ -1,7 +1,7 @@
 training:
   model_save_path: "./trained_models/keras_test_unet"
-  sample_label_path: "./data/sample_data/label"
-  sample_image_path: "./data/sample_data/image"
+  sample_label_path: "./data/sample_data/labels"
+  sample_image_path: "./data/sample_data/images"
   model:
     compile_params:
       optimizer: "rmsprop" # https://www.tensorflow.org/api_docs/python/tf/keras/optimizers
